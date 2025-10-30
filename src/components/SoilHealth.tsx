@@ -267,12 +267,13 @@ export default function SoilHealth() {
                   <div className="flex justify-between items-center mt-3">
                     <div className="flex items-center space-x-2">
                       <span
-                        className={`w-6 h-1 rounded-sm ${item.color}`}
+                        className={`w-3 h-3 rounded-full ${item.color}`}
                       ></span>
                       <span className="text-sm text-gray-700">
                         {item.label}
                       </span>
                     </div>
+
                     <span className={`text-sm font-medium ${item.textColor}`}>
                       {item.status}
                     </span>
@@ -313,82 +314,90 @@ export default function SoilHealth() {
 
         {/* Nutrient Trends */}
         {activeTab === "trends" && (
-          <div className="bg-white rounded-2xl shadow-lg p-8 w-[95%] mx-auto mt-10">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-              6-Month Nutrient Trends
-            </h2>
-            <p className="text-gray-600 mb-8">
-              Changes in soil nutrient levels over time
-            </p>
+          <div>
+            {/* --- GRAPH CARD --- */}
+            <div className="bg-white rounded-2xl shadow-lg p-8 w-[95%] mx-auto mt-10">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                6-Month Nutrient Trends
+              </h2>
+              <p className="text-gray-600 mb-8">
+                Changes in soil nutrient levels over time
+              </p>
 
-            <ResponsiveContainer width="100%" height={350}>
-              <LineChart data={trendData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                <XAxis dataKey="month" tick={{ fill: "#6b7280" }} />
-                <YAxis
-                  domain={[0, 100]}
-                  tick={{ fill: "#6b7280" }}
-                  label={{
-                    value: "%",
-                    angle: -90,
-                    position: "insideLeft",
-                    fill: "#6b7280",
-                  }}
-                />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="Nitrogen"
-                  stroke="#f97316"
-                  strokeWidth={3}
-                  dot={{ r: 4 }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="Phosphorus"
-                  stroke="#22c55e"
-                  strokeWidth={3}
-                  dot={{ r: 4 }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="Potassium"
-                  stroke="#3b82f6"
-                  strokeWidth={3}
-                  dot={{ r: 4 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+              <ResponsiveContainer width="100%" height={350}>
+                <LineChart data={trendData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <XAxis dataKey="month" tick={{ fill: "#6b7280" }} />
+                  <YAxis
+                    domain={[0, 100]}
+                    tick={{ fill: "#6b7280" }}
+                    label={{
+                      value: "%",
+                      angle: -90,
+                      position: "insideLeft",
+                      fill: "#6b7280",
+                    }}
+                  />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="Nitrogen"
+                    stroke="#f97316"
+                    strokeWidth={3}
+                    dot={{ r: 4 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="Phosphorus"
+                    stroke="#22c55e"
+                    strokeWidth={3}
+                    dot={{ r: 4 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="Potassium"
+                    stroke="#3b82f6"
+                    strokeWidth={3}
+                    dot={{ r: 4 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* --- SEPARATE INSIGHT CARD --- */}
+            <div className="bg-white rounded-2xl shadow-lg p-8 w-[95%] mx-auto mt-10">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                Trend Analysis & Insights
+              </h2>
+              <p className="text-gray-600 mb-8">
+                AI-powered recommendations based on historical data
+              </p>
+
+              <div className="space-y-8">
+                {propertyInsight.map((item, index) => (
+                  <div key={index} className="flex items-start space-x-4">
+                    <span
+                      className={`w-1 self-stretch rounded-sm ${
+                        item.color === "orange"
+                          ? "bg-orange-500"
+                          : item.color === "blue"
+                          ? "bg-blue-500"
+                          : "bg-gray-400"
+                      }`}
+                    ></span>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-800">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-600">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         )}
-        {/* Big Card with Insights */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 w-[95%] mx-auto mt-10">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
-            Trend Analysis & Insights{" "}
-          </h2>
-          <p className="text-gray-600 mb-8">
-            AI-powered recommendations based on historical data{" "}
-          </p>
-
-          <div className="space-y-8">
-            {propertyInsight.map((item, index) => (
-              <div key={index} className="flex items-start space-x-4">
-                <span
-                  className={`w-1 self-stretch rounded-sm ${
-                    item.color === "orange" ? "bg-orange-500" : "bg-blue-500"
-                  }`}
-                ></span>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );

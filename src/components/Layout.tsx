@@ -57,7 +57,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div className="flex items-center">
               {isOpen && (
                 <Image
-                  src="/logo.png"
+                  src="/Logo.png"
                   alt="Company Logo"
                   width={80}
                   height={80}
