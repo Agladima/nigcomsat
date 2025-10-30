@@ -29,7 +29,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       icon: <CloudSun size={20} />,
       path: "/weather-analytics",
     },
-    { name: "Soil Health", icon: <Sprout size={20} />, path: "#" },
+    {
+      name: "Soil Health",
+      icon: <Sprout size={20} />,
+      path: "/soil",
+    },
     { name: "Reports", icon: <FileText size={20} />, path: "#" },
     { name: "Team", icon: <Users size={20} />, path: "#" },
   ];
@@ -132,7 +136,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
           <div className="flex items-center gap-3">
             <Image
-              src="/Logo.png"
+              src="/avatar.png"
               alt="User Avatar"
               width={42}
               height={42}
