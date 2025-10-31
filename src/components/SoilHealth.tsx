@@ -12,6 +12,13 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
+  BarChart,
+  Bar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
 } from "recharts";
 
 export default function SoilHealth() {
@@ -64,6 +71,64 @@ export default function SoilHealth() {
       color: "orange",
       title: "Recommendation",
       desc: "Based on current trends, plan for nitrogen supplementation in 2-3 months before planting season. Consider organic matter addition to improve soil structure.",
+    },
+  ];
+
+  // Nutrient breakdown data
+  const nutrientBreakdown = [
+    {
+      nutrient: "Nitrogen (N)",
+      current: 75,
+      optimal: 80,
+      unit: "kg/ha",
+      status: "sufficient",
+      statusColor: "text-green-600",
+      bgColor: "bg-green-500",
+    },
+    {
+      nutrient: "Phosphorus (P)",
+      current: 60,
+      optimal: 70,
+      unit: "kg/ha",
+      status: "needs monitoring",
+      statusColor: "text-yellow-600",
+      bgColor: "bg-yellow-500",
+    },
+    {
+      nutrient: "Potassium (K)",
+      current: 80,
+      optimal: 85,
+      unit: "kg/ha",
+      status: "needs monitoring",
+      statusColor: "text-yellow-600",
+      bgColor: "bg-yellow-500",
+    },
+    {
+      nutrient: "Calcium (Ca)",
+      current: 70,
+      optimal: 75,
+      unit: "kg/ha",
+      status: "sufficient",
+      statusColor: "text-green-600",
+      bgColor: "bg-green-500",
+    },
+    {
+      nutrient: "Magnesium (Mg)",
+      current: 30,
+      optimal: 70,
+      unit: "kg/ha",
+      status: "critical",
+      statusColor: "text-red-600",
+      bgColor: "bg-red-500",
+    },
+    {
+      nutrient: "Sulfur (S)",
+      current: 40,
+      optimal: 50,
+      unit: "kg/ha",
+      status: "sufficient",
+      statusColor: "text-green-600",
+      bgColor: "bg-green-500",
     },
   ];
 
@@ -179,12 +244,184 @@ export default function SoilHealth() {
           </div>
         </div>
 
-        {/* Nutrient Levels */}
+        {/* === Nutrient Levels === */}
         {activeTab === "nutrient" && (
-          <div className="text-gray-700 text-lg space-y-2">
-            <p>Nitrogen: 75% (Optimal)</p>
-            <p>Phosphorus: 68% (Stable)</p>
-            <p>Potassium: 81% (Slightly High)</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* --- MACRO-NUTRIENT ANALYSIS --- */}
+            <div className="bg-white rounded-2xl shadow-lg p-8">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                Macro-Nutrient Analysis
+              </h2>
+              <p className="text-gray-600 mb-8">Current vs Optimal Levels</p>
+
+              <ResponsiveContainer width="100%" height={350}>
+                <BarChart
+                  data={[
+                    { name: "Nitrogen (N)", Current: 75, Optimal: 80 },
+                    { name: "Phosphorus (P)", Current: 60, Optimal: 70 },
+                    { name: "Potassium (K)", Current: 80, Optimal: 85 },
+                    { name: "Calcium (Ca)", Current: 70, Optimal: 75 },
+                    { name: "Magnesium (Mg)", Current: 30, Optimal: 70 },
+                    { name: "Sulfur (S)", Current: 40, Optimal: 50 },
+                  ]}
+                  margin={{ top: 10, right: 30, left: 0, bottom: 10 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <XAxis
+                    dataKey="name"
+                    tick={{ fill: "#6b7280", fontSize: 12 }}
+                  />
+                  <YAxis
+                    domain={[0, 100]}
+                    tick={{ fill: "#6b7280", fontSize: 12 }}
+                    label={{
+                      value: "%",
+                      angle: -90,
+                      position: "insideLeft",
+                      fill: "#6b7280",
+                    }}
+                  />
+                  <Tooltip />
+                  <Legend />
+                  <Bar
+                    dataKey="Current"
+                    fill="#22c55e"
+                    barSize={18}
+                    radius={[4, 4, 0, 0]}
+                  />
+                  <Bar
+                    dataKey="Optimal"
+                    fill="#ef4444"
+                    barSize={18}
+                    radius={[4, 4, 0, 0]}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* --- SOIL HEALTH RADAR --- */}
+            <div className="bg-white rounded-2xl shadow-lg p-8">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                Soil Health Radar
+              </h2>
+              <p className="text-gray-600 mb-8">Overall Health Indicators</p>
+
+              <ResponsiveContainer width="100%" height={400}>
+                <RadarChart
+                  cx="50%"
+                  cy="50%"
+                  outerRadius="80%"
+                  data={[
+                    { metric: "Nitrogen", value: 78 },
+                    { metric: "Moisture", value: 68 },
+                    { metric: "Organic Matter", value: 72 },
+                    { metric: "pH", value: 65 },
+                    { metric: "Potassium", value: 80 },
+                    { metric: "Phosphorus", value: 70 },
+                  ]}
+                >
+                  <PolarGrid />
+                  <PolarAngleAxis dataKey="metric" tick={{ fill: "#6b7280" }} />
+                  <PolarRadiusAxis
+                    angle={30}
+                    domain={[0, 100]}
+                    tick={{ fill: "#6b7280" }}
+                  />
+                  <Radar
+                    name="Soil Health"
+                    dataKey="value"
+                    stroke="#3b82f6"
+                    fill="#3b82f6"
+                    fillOpacity={0.4}
+                  />
+                  <Tooltip />
+                </RadarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* --- NUTRIENT BREAKDOWN SECTION --- */}
+            <div className="bg-white rounded-2xl shadow-lg p-8 col-span-1 lg:col-span-2">
+              <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                Nutrient Breakdown
+              </h2>
+              <p className="text-gray-600 mb-8">
+                Soil health insights and recommendations
+              </p>
+
+              <div className="space-y-6">
+                {[
+                  {
+                    color: "green",
+                    title: "Nitrogen (N)",
+                    desc: "Current: 75 kg/ha | Optimal: 80 kg/ha",
+                    status: "Nutrient level sufficient",
+                  },
+                  {
+                    color: "yellow",
+                    title: "Phosphorus (P)",
+                    desc: "Current: 60 kg/ha | Optimal: 70 kg/ha",
+                    status: "Nutrient level needs monitoring",
+                  },
+                  {
+                    color: "yellow",
+                    title: "Potassium (K)",
+                    desc: "Current: 80 kg/ha | Optimal: 85 kg/ha",
+                    status: "Nutrient level needs monitoring",
+                  },
+                  {
+                    color: "green",
+                    title: "Calcium (Ca)",
+                    desc: "Current: 70 kg/ha | Optimal: 75 kg/ha",
+                    status: "Nutrient level sufficient",
+                  },
+                  {
+                    color: "red",
+                    title: "Magnesium (Mg)",
+                    desc: "Current: 30 kg/ha | Optimal: 70 kg/ha",
+                    status: "Nutrient level critical",
+                  },
+                  {
+                    color: "green",
+                    title: "Sulfur (S)",
+                    desc: "Current: 40 kg/ha | Optimal: 50 kg/ha",
+                    status: "Nutrient level sufficient",
+                  },
+                ].map((item, index) => (
+                  <div key={index} className="flex items-start space-x-4">
+                    <span
+                      className={`w-1 self-stretch rounded-sm ${
+                        item.color === "green"
+                          ? "bg-green-500"
+                          : item.color === "yellow"
+                          ? "bg-yellow-500"
+                          : "bg-red-500"
+                      }`}
+                    ></span>
+                    <div className="flex-1">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-800">
+                            {item.title}
+                          </h3>
+                          <p className="text-gray-600">{item.desc}</p>
+                        </div>
+                        <span
+                          className={`text-sm font-medium ${
+                            item.color === "green"
+                              ? "text-green-600"
+                              : item.color === "yellow"
+                              ? "text-yellow-600"
+                              : "text-red-600"
+                          }`}
+                        >
+                          {item.status}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         )}
 
