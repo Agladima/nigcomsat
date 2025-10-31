@@ -12,20 +12,50 @@ import {
   CircleCheck,
 } from "lucide-react";
 import { FaArrowTrendUp, FaArrowTrendDown } from "react-icons/fa6";
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  LineChart,
+  Line,
+  Legend,
+} from "recharts";
 
 export default function Dashboard() {
   const [showAlert, setShowAlert] = useState(true);
+
+  // Soil health data
+  const soilData = [
+    { name: "Nitrogen", value: 75 },
+    { name: "Phosphorus", value: 60 },
+    { name: "Potassium", value: 80 },
+    { name: "pH Level", value: 70 },
+    { name: "Organic Matter", value: 55 },
+  ];
+
+  // Weather data
+  const weatherData = [
+    { day: "Mon", temp: 32, rain: 10 },
+    { day: "Tue", temp: 7, rain: 32 },
+    { day: "Wed", temp: 6, rain: 30 },
+    { day: "Thu", temp: 30, rain: 32 },
+    { day: "Fri", temp: 24, rain: 8 },
+    { day: "Sat", temp: 4, rain: 30 },
+    { day: "Sun", temp: 8, rain: 32 },
+  ];
 
   return (
     <div className="p-0 m-0">
       {/* Top Navigation Bar */}
       <div className="flex items-center w-full px-6 py-2 border-b border-gray-100 bg-white">
-        {/* Left: Title */}
         <h1 className="text-2xl font-semibold text-gray-900 whitespace-nowrap">
           AgroSense Team
         </h1>
 
-        {/* Center: Search */}
         <div className="flex items-center bg-gray-100 rounded-full px-3 py-1.5 text-gray-500 w-72 mx-auto">
           <Search size={18} className="mr-2 text-gray-500" />
           <input
@@ -35,7 +65,6 @@ export default function Dashboard() {
           />
         </div>
 
-        {/* Right: Notification + Button */}
         <div className="flex items-center ml-6 space-x-3">
           <button className="p-2 bg-gray-100 rounded-full border border-gray-200 hover:bg-gray-200 transition">
             <Bell size={20} className="text-gray-700" />
@@ -49,7 +78,6 @@ export default function Dashboard() {
 
       {/* Dashboard Main Content */}
       <div className="p-6 bg-white">
-        {/* Dashboard Heading */}
         <h2 className="text-3xl font-bold text-gray-900 mb-2">
           Dashboard Overview
         </h2>
@@ -146,6 +174,97 @@ export default function Dashboard() {
             <div className="flex items-center text-gray-600 mt-2">
               <CircleCheck size={16} className="mr-1" />
               <span className="text-sm font-medium">Normal</span>
+            </div>
+          </div>
+        </div>
+
+        {/* --- Graph Cards --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+          {/* Soil Health Indicators */}
+          <div className="bg-white rounded-lg shadow border border-gray-100 p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              Soil Health Indicators
+            </h3>
+            <p className="text-gray-600 mb-4">Current soil nutrient levels</p>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart
+                layout="vertical"
+                data={soilData}
+                margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <XAxis
+                  type="number"
+                  domain={[0, 100]}
+                  tick={{ fill: "#6b7280" }}
+                />
+                <YAxis
+                  type="category"
+                  dataKey="name"
+                  tick={{ fill: "#6b7280" }}
+                  width={120}
+                />
+                <Tooltip />
+                <Bar
+                  dataKey="value"
+                  fill="#22c55e"
+                  barSize={20}
+                  radius={[4, 4, 4, 4]}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* 7-Day Weather Forecast */}
+          <div className="bg-white rounded-lg shadow border border-gray-100 p-6">
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              7-Day Weather Forecast
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Temperature and rainfall prediction
+            </p>
+            <ResponsiveContainer width="100%" height={250}>
+              <LineChart
+                data={weatherData}
+                margin={{ top: 20, right: 40, left: 40, bottom: 20 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <XAxis dataKey="day" tick={{ fill: "#6b7280" }} />
+                <YAxis
+                  yAxisId="left"
+                  orientation="left"
+                  domain={[0, 32]}
+                  tick={{ fill: "red" }}
+                />
+                <YAxis
+                  yAxisId="right"
+                  orientation="right"
+                  domain={[0, 32]}
+                  tick={{ fill: "blue" }}
+                />
+                <Tooltip />
+                <Legend />
+                <Line
+                  yAxisId="left"
+                  type="monotone"
+                  dataKey="temp"
+                  stroke="#ef4444"
+                  strokeWidth={2}
+                  dot={{ r: 3 }}
+                />
+                <Line
+                  yAxisId="right"
+                  type="monotone"
+                  dataKey="rain"
+                  stroke="#3b82f6"
+                  strokeWidth={2}
+                  dot={{ r: 3 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+            <div className="flex justify-end mt-2 space-x-4">
+              <span className="text-blue-600 font-medium">Rainfall (mm)</span>
+              <span className="text-red-600 font-medium">Temp (°C)</span>
             </div>
           </div>
         </div>
