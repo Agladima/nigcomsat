@@ -309,47 +309,98 @@ export default function WeatherAnalytics() {
         )}
 
         {activeTab === "historical" && (
-          <div className="mt-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
-              Past Week Weather Data
-            </h3>
-            <ResponsiveContainer width="100%" height={250}>
-              <LineChart
-                data={historicalData}
-                margin={{ top: 20, right: 20, left: 0, bottom: 0 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                <XAxis dataKey="day" tick={{ fill: "#6b7280" }} />
-                <YAxis
-                  yAxisId="left"
-                  orientation="left"
-                  domain={[0, 40]}
-                  tick={{ fill: "#ef4444" }}
-                />
-                <YAxis
-                  yAxisId="right"
-                  orientation="right"
-                  domain={[0, 10]}
-                  tick={{ fill: "#3b82f6" }}
-                />
-                <Tooltip />
-                <Legend />
-                <Line
-                  yAxisId="left"
-                  type="monotone"
-                  dataKey="temp"
-                  stroke="#ef4444"
-                  strokeWidth={2}
-                />
-                <Line
-                  yAxisId="right"
-                  type="monotone"
-                  dataKey="rain"
-                  stroke="#3b82f6"
-                  strokeWidth={2}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+            {/* Rainfall & Wind Speed */}
+            <div className="bg-white border border-gray-100 rounded-xl shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                Rainfall & Wind Speed
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Precipitation and Wind Patterns
+              </p>
+              <ResponsiveContainer width="100%" height={250}>
+                <ComposedChart
+                  data={[
+                    { month: "Jan", rain: 20 },
+                    { month: "Feb", rain: 30 },
+                    { month: "Mar", rain: 70 },
+                    { month: "Apr", rain: 100 },
+                    { month: "May", rain: 140 },
+                    { month: "Jun", rain: 200 },
+                    { month: "Jul", rain: 280 },
+                    { month: "Aug", rain: 280 },
+                    { month: "Sep", rain: 210 },
+                    { month: "Oct", rain: 70 },
+                    { month: "Nov", rain: 30 },
+                    { month: "Dec", rain: 20 },
+                  ]}
+                  margin={{ top: 20, right: 40, left: 0, bottom: 0 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <XAxis dataKey="month" tick={{ fill: "#6b7280" }} />
+                  <YAxis
+                    yAxisId="left"
+                    orientation="left"
+                    domain={[0, 280]}
+                    tick={{ fill: "#3b82f6" }}
+                  />
+                  <Tooltip />
+                  <Area
+                    yAxisId="left"
+                    type="monotone"
+                    dataKey="rain"
+                    fill="#3b82f6"
+                    stroke="#2563eb"
+                    fillOpacity={0.6}
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Temperature Variation */}
+            <div className="bg-white border border-gray-100 rounded-xl shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                Temperature Variation
+              </h3>
+              <p className="text-gray-600 mb-4">Average Monthly Temperatures</p>
+              <ResponsiveContainer width="100%" height={250}>
+                <LineChart
+                  data={[
+                    { month: "Jan", temp: 26 },
+                    { month: "Feb", temp: 26 },
+                    { month: "Mar", temp: 28 },
+                    { month: "Apr", temp: 26 },
+                    { month: "May", temp: 24 },
+                    { month: "Jun", temp: 26 },
+                    { month: "Jul", temp: 26 },
+                    { month: "Aug", temp: 26 },
+                    { month: "Sep", temp: 27 },
+                    { month: "Oct", temp: 24 },
+                    { month: "Nov", temp: 26 },
+                    { month: "Dec", temp: 26 },
+                  ]}
+                  margin={{ top: 20, right: 20, left: 0, bottom: 0 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                  <XAxis dataKey="month" tick={{ fill: "#6b7280" }} />
+                  <YAxis
+                    yAxisId="left"
+                    orientation="left"
+                    domain={[20, 32]}
+                    tick={{ fill: "#ef4444" }}
+                  />
+                  <Tooltip />
+                  <Line
+                    yAxisId="left"
+                    type="monotone"
+                    dataKey="temp"
+                    stroke="#ef4444"
+                    strokeWidth={2}
+                    dot={{ r: 3 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         )}
       </div>
