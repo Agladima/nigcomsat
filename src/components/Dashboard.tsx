@@ -268,6 +268,56 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+        {/* --- Recommendations Card --- */}
+        <div className="bg-white rounded-lg shadow border border-gray-100 p-6 w-[100%] mx-auto mt-8">
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">
+            Recommendations
+          </h3>
+          <p className="text-gray-600 mb-4">Updates and AI-driven insights</p>
+
+          <div className="space-y-4">
+            {[
+              {
+                color: "red",
+                title: "Pest Detection Alert",
+                desc: "Pest activities rising in Oyo East. Inspect maize crop immediately.",
+              },
+              {
+                color: "yellow",
+                title: "Rainfall Alert",
+                desc: "Rainfall expected in your region within 48 hours. Consider adjusting irrigation schedules and fertilizer application.",
+              },
+              {
+                color: "yellow",
+                title: "Soil Nutrient Alert",
+                desc: "Soil nitrogen low in Saki zone. Consider adding urea before next planting.",
+              },
+              {
+                color: "green",
+                title: "Optimal Conditions",
+                desc: "Friday to Sunday shows ideal conditions for pesticide application with moderate wind speeds and no rainfall expected.",
+              },
+            ].map((item, index) => (
+              <div key={index} className="flex items-start space-x-4">
+                <span
+                  className={`w-1 self-stretch rounded-sm ${
+                    item.color === "red"
+                      ? "bg-red-500"
+                      : item.color === "yellow"
+                      ? "bg-yellow-500"
+                      : "bg-green-500"
+                  }`}
+                ></span>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-800">
+                    {item.title}
+                  </h4>
+                  <p className="text-gray-600">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
