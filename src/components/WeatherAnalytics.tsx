@@ -11,8 +11,7 @@ import {
   Sun,
   CloudRain,
 } from "lucide-react";
-import { MdWbCloudy, MdSunny } from "react-icons/md";
-import { IoRainy } from "react-icons/io5";
+import { MdWbCloudy } from "react-icons/md";
 import {
   ResponsiveContainer,
   LineChart,
@@ -23,7 +22,6 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
   ComposedChart,
 } from "recharts";
 
@@ -51,26 +49,60 @@ export default function WeatherAnalytics() {
     { day: "Sun", wind: 9, rain: 2 },
   ];
 
-  // Historical Data
-  const historicalData = [
-    { day: "Mon", temp: 27, rain: 1 },
-    { day: "Tue", temp: 26, rain: 3 },
-    { day: "Wed", temp: 28, rain: 0 },
-    { day: "Thu", temp: 29, rain: 2 },
-    { day: "Fri", temp: 28, rain: 0 },
-    { day: "Sat", temp: 27, rain: 4 },
-    { day: "Sun", temp: 26, rain: 1 },
+  const forecastDays = [
+    {
+      day: "Mon",
+      icon: <Sun className="text-yellow-400" size={28} />,
+      temp: "28°C",
+      condition: "Cloudy",
+    },
+    {
+      day: "Tue",
+      icon: <MdWbCloudy className="text-gray-500" size={28} />,
+      temp: "30°C",
+      condition: "Sunny",
+    },
+    {
+      day: "Wed",
+      icon: <MdWbCloudy className="text-gray-500" size={28} />,
+      temp: "25°C",
+      condition: "Rainy",
+    },
+    {
+      day: "Thu",
+      icon: <CloudRain className="text-blue-400" size={28} />,
+      temp: "31°C",
+      condition: "Sunny",
+    },
+    {
+      day: "Fri",
+      icon: <Sun className="text-yellow-400" size={28} />,
+      temp: "27°C",
+      condition: "Windy",
+    },
+    {
+      day: "Sat",
+      icon: <Sun className="text-yellow-400" size={28} />,
+      temp: "29°C",
+      condition: "Cloudy",
+    },
+    {
+      day: "Sun",
+      icon: <MdWbCloudy className="text-gray-500" size={28} />,
+      temp: "26°C",
+      condition: "Rainy",
+    },
   ];
 
   return (
-    <div className="p-0 m-0">
+    <div className="p-0 m-0 w-[90%] mx-auto">
       {/* Top Navigation Bar */}
-      <div className="flex items-center w-full px-6 py-2 border-b border-gray-100 bg-white">
+      <div className="flex items-center w-full px-6 py-2 border-b border-gray-200 bg-white">
         <h1 className="text-2xl font-semibold text-gray-900 whitespace-nowrap">
           AgroSense Team
         </h1>
 
-        <div className="flex items-center bg-gray-100 rounded-full px-3 py-1.5 text-gray-500 w-72 mx-auto">
+        <div className="flex items-center bg-gray-100 rounded-full px-3 py-1.5 text-gray-500 w-72 mx-auto border border-gray-200">
           <Search size={18} className="mr-2 text-gray-500" />
           <input
             type="text"
@@ -80,11 +112,11 @@ export default function WeatherAnalytics() {
         </div>
 
         <div className="flex items-center ml-6 space-x-3">
-          <button className="p-2 bg-gray-100 rounded-full border border-gray-200 hover:bg-gray-200 transition">
+          <button className="p-2 bg-gray-100 rounded-full border border-gray-300 hover:bg-gray-200 transition">
             <Bell size={20} className="text-gray-700" />
           </button>
 
-          <button className="bg-blue-600 text-white px-4 py-1.5 rounded-full font-medium hover:bg-blue-700 transition">
+          <button className="bg-blue-600 text-white px-4 py-1.5 rounded-full font-medium hover:bg-blue-700 transition border border-blue-700">
             Run New Test
           </button>
         </div>
@@ -99,7 +131,7 @@ export default function WeatherAnalytics() {
         </p>
 
         {/* Main Weather Card */}
-        <div className="bg-white border border-gray-100 rounded-xl shadow p-6 flex flex-col lg:flex-row justify-between">
+        <div className="bg-white border border-gray-200 rounded-xl p-6 flex flex-col lg:flex-row justify-between">
           <div>
             <h3 className="text-lg font-semibold text-gray-800">
               Current Weather - Oyo, Nigeria
@@ -117,291 +149,384 @@ export default function WeatherAnalytics() {
           <div className="hidden lg:block w-px bg-gray-200 mx-8"></div>
 
           <div className="flex-1 grid grid-cols-3 gap-6 mt-6 lg:mt-0">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-blue-500 rounded-full text-white">
-                <Droplets size={18} />
+            {[
+              {
+                icon: <Droplets size={18} />,
+                label: "Humidity",
+                value: "68%",
+                color: "bg-blue-500",
+              },
+              {
+                icon: <Wind size={18} />,
+                label: "Wind",
+                value: "12 km/h",
+                color: "bg-gray-600",
+              },
+              {
+                icon: <Eye size={18} />,
+                label: "Visibility",
+                value: "10 km",
+                color: "bg-green-600",
+              },
+              {
+                icon: <Gauge size={18} />,
+                label: "Pressure",
+                value: "1013 mb",
+                color: "bg-purple-600",
+              },
+              {
+                icon: <Sun size={18} />,
+                label: "UV Index",
+                value: "7 (High)",
+                color: "bg-yellow-500",
+              },
+              {
+                icon: <CloudRain size={18} />,
+                label: "Rain Chance",
+                value: "20%",
+                color: "bg-blue-700",
+              },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center space-x-3">
+                <div
+                  className={`p-2 ${item.color} rounded-full text-white border border-gray-700`}
+                >
+                  {item.icon}
+                </div>
+                <div className="text-left">
+                  <span className="block text-sm font-medium text-gray-600">
+                    {item.label}
+                  </span>
+                  <p className="text-lg font-semibold text-gray-900">
+                    {item.value}
+                  </p>
+                </div>
               </div>
-              <div className="text-left">
-                <span className="block text-sm font-medium text-gray-600">
-                  Humidity
-                </span>
-                <p className="text-lg font-semibold text-gray-900">68%</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-gray-600 rounded-full text-white">
-                <Wind size={18} />
-              </div>
-              <div className="text-left">
-                <span className="block text-sm font-medium text-gray-600">
-                  Wind
-                </span>
-                <p className="text-lg font-semibold text-gray-900">12 km/h</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-green-600 rounded-full text-white">
-                <Eye size={18} />
-              </div>
-              <div className="text-left">
-                <span className="block text-sm font-medium text-gray-600">
-                  Visibility
-                </span>
-                <p className="text-lg font-semibold text-gray-900">10 km</p>
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-purple-600 rounded-full text-white">
-                <Gauge size={18} />
-              </div>
-              <div className="text-left">
-                <span className="block text-sm font-medium text-gray-600">
-                  Pressure
-                </span>
-                <p className="text-lg font-semibold text-gray-900">1013 mb</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-yellow-500 rounded-full text-white">
-                <Sun size={18} />
-              </div>
-              <div className="text-left">
-                <span className="block text-sm font-medium text-gray-600">
-                  UV Index
-                </span>
-                <p className="text-lg font-semibold text-gray-900">7 (High)</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-blue-700 rounded-full text-white">
-                <CloudRain size={18} />
-              </div>
-              <div className="text-left">
-                <span className="block text-sm font-medium text-gray-600">
-                  Rain Chance
-                </span>
-                <p className="text-lg font-semibold text-gray-900">20%</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        {/* Pill-style tabs below the main weather card */}
-        <div className="flex space-x-2 bg-gray-100 rounded-full p-1 w-[500px] mt-6">
-          <button
-            className={`flex-1 text-center px-4 py-2 rounded-full font-medium transition ${
-              activeTab === "forecast"
-                ? "bg-white text-gray-900 shadow"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
-            onClick={() => setActiveTab("forecast")}
-          >
-            Forecast Analysis
-          </button>
-          <button
-            className={`flex-1 text-center px-4 py-2 rounded-full font-medium transition ${
-              activeTab === "historical"
-                ? "bg-white text-gray-900 shadow"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
-            onClick={() => setActiveTab("historical")}
-          >
-            Historical Data
-          </button>
+        {/* 7-Day Forecast Section */}
+        <div className="bg-white border border-gray-200 rounded-xl p-6 mt-6">
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">
+            7-Day Weather Forecast{" "}
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Detailed weather predictions for the week ahead{" "}
+          </p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4 ">
+            {forecastDays.map((day, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center bg-gray-50 rounded-lg py-4 hover:bg-gray-100 transition border border-gray-200"
+              >
+                <span className="text-sm font-semibold text-gray-800 mb-2">
+                  {day.day}
+                </span>
+                {day.icon}
+                <span className="text-lg font-bold text-gray-900 mt-2 ">
+                  {day.temp}
+                </span>
+                <span className="text-sm text-gray-600 ">{day.condition}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Graphs / Cards */}
+        {/* Pill Tabs */}
+        <div className="flex space-x-2 bg-gray-100 rounded-full p-1 w-[500px] mt-6 border border-gray-200">
+          {["forecast", "historical"].map((tab) => (
+            <button
+              key={tab}
+              className={`flex-1 text-center px-4 py-2 rounded-full font-medium transition ${
+                activeTab === tab
+                  ? "bg-white text-gray-900 border border-gray-300"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab === "forecast" ? "Forecast Analysis" : "Historical Data"}
+            </button>
+          ))}
+        </div>
+
+        {/* Forecast Analysis */}
         {activeTab === "forecast" && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-            {/* Temperature & Humidity */}
-            <div className="bg-white border border-gray-100 rounded-xl shadow p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                Temperature & Humidity Trends
-              </h3>
-              <p className="text-gray-600 mb-4">7-Day Forecast Comparison</p>
-              <ResponsiveContainer width="100%" height={250}>
-                <LineChart
-                  data={tempHumidityData}
-                  margin={{ top: 20, right: 40, left: 0, bottom: 0 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                  <XAxis dataKey="day" tick={{ fill: "#6b7280" }} />
-                  <YAxis
-                    yAxisId="left"
-                    orientation="left"
-                    domain={[0, 80]}
-                    tick={{ fill: "#2563eb" }}
-                  />
-                  <YAxis
-                    yAxisId="right"
-                    orientation="right"
-                    domain={[0, 40]}
-                    tick={{ fill: "#ef4444" }}
-                  />
-                  <Tooltip />
-                  <Line
-                    yAxisId="left"
-                    type="monotone"
-                    dataKey="humidity"
-                    stroke="#2563eb"
-                    strokeWidth={2}
-                    dot={{ r: 3 }}
-                  />
-                  <Line
-                    yAxisId="right"
-                    type="monotone"
-                    dataKey="temp"
-                    stroke="#ef4444"
-                    strokeWidth={2}
-                    dot={{ r: 3 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+          <>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+              {/* Temperature & Humidity */}
+              <div className="bg-white border border-gray-200 rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  Temperature & Humidity Trends
+                </h3>
+                <p className="text-gray-600 mb-4">7-Day Forecast Comparison</p>
+                <ResponsiveContainer width="100%" height={250}>
+                  <LineChart
+                    data={tempHumidityData}
+                    margin={{ top: 20, right: 40, left: 0, bottom: 0 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis dataKey="day" tick={{ fill: "#6b7280" }} />
+                    <YAxis
+                      yAxisId="left"
+                      orientation="left"
+                      domain={[0, 80]}
+                      tick={{ fill: "#2563eb" }}
+                    />
+                    <YAxis
+                      yAxisId="right"
+                      orientation="right"
+                      domain={[0, 40]}
+                      tick={{ fill: "#ef4444" }}
+                    />
+                    <Tooltip />
+                    <Line
+                      yAxisId="left"
+                      type="monotone"
+                      dataKey="humidity"
+                      stroke="#2563eb"
+                      strokeWidth={2}
+                      dot={{ r: 3 }}
+                    />
+                    <Line
+                      yAxisId="right"
+                      type="monotone"
+                      dataKey="temp"
+                      stroke="#ef4444"
+                      strokeWidth={2}
+                      dot={{ r: 3 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Rainfall & Wind Speed */}
+              <div className="bg-white border border-gray-200 rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  Rainfall & Wind Speed
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Precipitations and Patterns
+                </p>
+                <ResponsiveContainer width="100%" height={250}>
+                  <ComposedChart
+                    data={rainfallWindData}
+                    margin={{ top: 20, right: 40, left: 0, bottom: 0 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis dataKey="day" tick={{ fill: "#6b7280" }} />
+                    <YAxis
+                      yAxisId="left"
+                      orientation="left"
+                      domain={[0, 12]}
+                      tick={{ fill: "#9ca3af" }}
+                    />
+                    <YAxis
+                      yAxisId="right"
+                      orientation="right"
+                      domain={[0, 20]}
+                      tick={{ fill: "#2563eb" }}
+                    />
+                    <Tooltip />
+                    <Area
+                      yAxisId="left"
+                      type="monotone"
+                      dataKey="wind"
+                      fill="#d1d5db"
+                      stroke="#9ca3af"
+                      fillOpacity={0.8}
+                    />
+                    <Area
+                      yAxisId="right"
+                      type="monotone"
+                      dataKey="rain"
+                      fill="#3b82f6"
+                      stroke="#2563eb"
+                      fillOpacity={0.8}
+                    />
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </div>
             </div>
 
-            {/* Rainfall & Wind */}
-            <div className="bg-white border border-gray-100 rounded-xl shadow p-6">
+            {/* Agricultural Recommendations */}
+            <div className="bg-white border border-gray-200 rounded-xl p-6 mt-6">
               <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                Rainfall & Wind Speed
+                Agricultural Recommendations
               </h3>
-              <p className="text-gray-600 mb-4">Precipitations and Patterns</p>
-              <ResponsiveContainer width="100%" height={250}>
-                <ComposedChart
-                  data={rainfallWindData}
-                  margin={{ top: 20, right: 40, left: 0, bottom: 0 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                  <XAxis dataKey="day" tick={{ fill: "#6b7280" }} />
-                  <YAxis
-                    yAxisId="left"
-                    orientation="left"
-                    domain={[0, 12]}
-                    tick={{ fill: "#9ca3af" }}
-                  />
-                  <YAxis
-                    yAxisId="right"
-                    orientation="right"
-                    domain={[0, 20]}
-                    tick={{ fill: "#2563eb" }}
-                  />
-                  <Tooltip />
-                  <Area
-                    yAxisId="left"
-                    type="monotone"
-                    dataKey="wind"
-                    fill="#d1d5db"
-                    stroke="#9ca3af"
-                    fillOpacity={0.8}
-                  />
-                  <Area
-                    yAxisId="right"
-                    type="monotone"
-                    dataKey="rain"
-                    fill="#3b82f6"
-                    stroke="#2563eb"
-                    fillOpacity={0.8}
-                  />
-                </ComposedChart>
-              </ResponsiveContainer>
+              <p className="text-gray-600 mb-4">Weather-based farming advice</p>
+
+              <div className="space-y-4">
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h4 className="font-semibold text-gray-800">
+                    Rainfall Alert
+                  </h4>
+                  <p className="text-gray-600">
+                    Heavy rainfall expected on Thursday (12mm). Consider
+                    postponing irrigation and ensure proper drainage in
+                    low-lying fields.
+                  </p>
+                </div>
+
+                <div className="border-l-4 border-yellow-400 pl-4">
+                  <h4 className="font-semibold text-gray-800">High UV Index</h4>
+                  <p className="text-gray-600">
+                    UV index is high (7). Ensure workers have adequate sun
+                    protection. Consider scheduling outdoor work for early
+                    morning or late afternoon.
+                  </p>
+                </div>
+
+                <div className="border-l-4 border-green-500 pl-4">
+                  <h4 className="font-semibold text-gray-800">
+                    Optimal Conditions
+                  </h4>
+                  <p className="text-gray-600">
+                    Friday to Sunday shows ideal conditions for pesticide
+                    application with moderate wind speeds and no rainfall
+                    expected.
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
+          </>
         )}
 
+        {/* Historical Data */}
         {activeTab === "historical" && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-            {/* Rainfall & Wind Speed */}
-            <div className="bg-white border border-gray-100 rounded-xl shadow p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                Rainfall & Wind Speed
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Precipitation and Wind Patterns
-              </p>
-              <ResponsiveContainer width="100%" height={250}>
-                <ComposedChart
-                  data={[
-                    { month: "Jan", rain: 20 },
-                    { month: "Feb", rain: 30 },
-                    { month: "Mar", rain: 70 },
-                    { month: "Apr", rain: 100 },
-                    { month: "May", rain: 140 },
-                    { month: "Jun", rain: 200 },
-                    { month: "Jul", rain: 280 },
-                    { month: "Aug", rain: 280 },
-                    { month: "Sep", rain: 210 },
-                    { month: "Oct", rain: 70 },
-                    { month: "Nov", rain: 30 },
-                    { month: "Dec", rain: 20 },
-                  ]}
-                  margin={{ top: 20, right: 40, left: 0, bottom: 0 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                  <XAxis dataKey="month" tick={{ fill: "#6b7280" }} />
-                  <YAxis
-                    yAxisId="left"
-                    orientation="left"
-                    domain={[0, 280]}
-                    tick={{ fill: "#3b82f6" }}
-                  />
-                  <Tooltip />
-                  <Area
-                    yAxisId="left"
-                    type="monotone"
-                    dataKey="rain"
-                    fill="#3b82f6"
-                    stroke="#2563eb"
-                    fillOpacity={0.6}
-                  />
-                </ComposedChart>
-              </ResponsiveContainer>
+          <>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+              {/* Rainfall & Wind Speed */}
+              <div className="bg-white border border-gray-200 rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  Rainfall & Wind Speed
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Precipitation and Wind Patterns
+                </p>
+                <ResponsiveContainer width="100%" height={250}>
+                  <AreaChart
+                    data={[
+                      { month: "Jan", rain: 20 },
+                      { month: "Feb", rain: 30 },
+                      { month: "Mar", rain: 70 },
+                      { month: "Apr", rain: 100 },
+                      { month: "May", rain: 140 },
+                      { month: "Jun", rain: 200 },
+                      { month: "Jul", rain: 280 },
+                      { month: "Aug", rain: 280 },
+                      { month: "Sep", rain: 210 },
+                      { month: "Oct", rain: 70 },
+                      { month: "Nov", rain: 30 },
+                      { month: "Dec", rain: 20 },
+                    ]}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis dataKey="month" tick={{ fill: "#6b7280" }} />
+                    <YAxis
+                      domain={[0, 280]}
+                      tick={{ fill: "#3b82f6" }}
+                      orientation="left"
+                    />
+                    <Tooltip />
+                    <Area
+                      type="monotone"
+                      dataKey="rain"
+                      fill="#3b82f6"
+                      stroke="#2563eb"
+                      fillOpacity={0.6}
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Temperature Variation */}
+              <div className="bg-white border border-gray-200 rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  Temperature Variation
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Average Monthly Temperatures
+                </p>
+                <ResponsiveContainer width="100%" height={250}>
+                  <LineChart
+                    data={[
+                      { month: "Jan", temp: 26 },
+                      { month: "Feb", temp: 26 },
+                      { month: "Mar", temp: 28 },
+                      { month: "Apr", temp: 26 },
+                      { month: "May", temp: 24 },
+                      { month: "Jun", temp: 26 },
+                      { month: "Jul", temp: 26 },
+                      { month: "Aug", temp: 26 },
+                      { month: "Sep", temp: 27 },
+                      { month: "Oct", temp: 24 },
+                      { month: "Nov", temp: 26 },
+                      { month: "Dec", temp: 26 },
+                    ]}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                    <XAxis dataKey="month" tick={{ fill: "#6b7280" }} />
+                    <YAxis
+                      domain={[20, 32]}
+                      tick={{ fill: "#ef4444" }}
+                      orientation="left"
+                    />
+                    <Tooltip />
+                    <Line
+                      type="monotone"
+                      dataKey="temp"
+                      stroke="#ef4444"
+                      strokeWidth={2}
+                      dot={{ r: 3 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </div>
 
-            {/* Temperature Variation */}
-            <div className="bg-white border border-gray-100 rounded-xl shadow p-6">
+            {/* Agricultural Recommendations */}
+            <div className="bg-white border border-gray-200 rounded-xl p-6 mt-6">
               <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                Temperature Variation
+                Agricultural Recommendations
               </h3>
-              <p className="text-gray-600 mb-4">Average Monthly Temperatures</p>
-              <ResponsiveContainer width="100%" height={250}>
-                <LineChart
-                  data={[
-                    { month: "Jan", temp: 26 },
-                    { month: "Feb", temp: 26 },
-                    { month: "Mar", temp: 28 },
-                    { month: "Apr", temp: 26 },
-                    { month: "May", temp: 24 },
-                    { month: "Jun", temp: 26 },
-                    { month: "Jul", temp: 26 },
-                    { month: "Aug", temp: 26 },
-                    { month: "Sep", temp: 27 },
-                    { month: "Oct", temp: 24 },
-                    { month: "Nov", temp: 26 },
-                    { month: "Dec", temp: 26 },
-                  ]}
-                  margin={{ top: 20, right: 20, left: 0, bottom: 0 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                  <XAxis dataKey="month" tick={{ fill: "#6b7280" }} />
-                  <YAxis
-                    yAxisId="left"
-                    orientation="left"
-                    domain={[20, 32]}
-                    tick={{ fill: "#ef4444" }}
-                  />
-                  <Tooltip />
-                  <Line
-                    yAxisId="left"
-                    type="monotone"
-                    dataKey="temp"
-                    stroke="#ef4444"
-                    strokeWidth={2}
-                    dot={{ r: 3 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+              <p className="text-gray-600 mb-4">Weather-based farming advice</p>
+
+              <div className="space-y-4">
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h4 className="font-semibold text-gray-800">
+                    Rainfall Alert
+                  </h4>
+                  <p className="text-gray-600">
+                    Heavy rainfall expected on Thursday (12mm). Consider
+                    postponing irrigation and ensure proper drainage in
+                    low-lying fields.
+                  </p>
+                </div>
+
+                <div className="border-l-4 border-yellow-400 pl-4">
+                  <h4 className="font-semibold text-gray-800">High UV Index</h4>
+                  <p className="text-gray-600">
+                    UV index is high (7). Ensure workers have adequate sun
+                    protection. Consider scheduling outdoor work for early
+                    morning or late afternoon.
+                  </p>
+                </div>
+
+                <div className="border-l-4 border-green-500 pl-4">
+                  <h4 className="font-semibold text-gray-800">
+                    Optimal Conditions
+                  </h4>
+                  <p className="text-gray-600">
+                    Friday to Sunday shows ideal conditions for pesticide
+                    application with moderate wind speeds and no rainfall
+                    expected.
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </div>

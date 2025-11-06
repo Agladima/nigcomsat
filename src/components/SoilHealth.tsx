@@ -145,13 +145,13 @@ export default function SoilHealth() {
   return (
     <div className="p-0 m-0">
       {/* Top Navigation Bar */}
-      <div className="flex items-center w-full px-6 py-2 border-b border-gray-100 bg-white">
+      <div className="flex items-center w-full px-6 py-2 border-b border-gray-200 bg-white">
         <h1 className="text-2xl font-semibold text-gray-900 whitespace-nowrap">
           AgroSense Team
         </h1>
 
         {/* Center: Search */}
-        <div className="flex items-center bg-gray-100 rounded-full px-3 py-1.5 text-gray-500 w-72 mx-auto">
+        <div className="flex items-center bg-gray-100 rounded-full px-3 py-1.5 text-gray-500 w-72 mx-auto border border-gray-200">
           <Search size={18} className="mr-2 text-gray-500" />
           <input
             type="text"
@@ -162,11 +162,11 @@ export default function SoilHealth() {
 
         {/* Right: Notification + Button */}
         <div className="flex items-center ml-6 space-x-3">
-          <button className="p-2 bg-gray-100 rounded-full border border-gray-200 hover:bg-gray-200 transition">
+          <button className="p-2 bg-gray-100 rounded-full border border-gray-300 hover:bg-gray-200 transition">
             <Bell size={20} className="text-gray-700" />
           </button>
 
-          <button className="bg-blue-600 text-white px-4 py-1.5 rounded-full font-medium hover:bg-blue-700 transition">
+          <button className="bg-blue-600 text-white px-4 py-1.5 rounded-full font-medium hover:bg-blue-700 transition border border-blue-700">
             Run New Test
           </button>
         </div>
@@ -184,12 +184,12 @@ export default function SoilHealth() {
         {/* Two Key Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
           {/* Overall Soil Health */}
-          <div className="bg-white rounded-2xl shadow border border-gray-100 p-5 flex flex-col justify-between">
+          <div className="bg-white rounded-2xl border border-gray-200 p-5 flex flex-col justify-between">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-semibold text-gray-800">
                 Overall Soil Health
               </h3>
-              <div className="p-2 bg-green-600 rounded-full">
+              <div className="p-2 bg-green-600 rounded-full border border-green-700">
                 <Sprout size={20} className="text-white" />
               </div>
             </div>
@@ -203,12 +203,12 @@ export default function SoilHealth() {
           </div>
 
           {/* Nutrient Status */}
-          <div className="bg-white rounded-2xl shadow border border-gray-100 p-5 flex flex-col justify-between">
+          <div className="bg-white rounded-2xl border border-gray-200 p-5 flex flex-col justify-between">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-semibold text-gray-800">
                 Nutrient Status
               </h3>
-              <div className="p-2 bg-blue-600 rounded-full">
+              <div className="p-2 bg-blue-600 rounded-full border border-blue-700">
                 <CheckCircle2 size={20} className="text-white" />
               </div>
             </div>
@@ -223,7 +223,7 @@ export default function SoilHealth() {
 
         {/* Unified Tabs */}
         <div className="flex justify-start mb-8">
-          <div className="flex bg-gray-100 rounded-full p-1 shadow-sm w-full max-w-md">
+          <div className="flex bg-gray-100 rounded-full p-1 border border-gray-200 w-full max-w-md">
             {[
               { id: "nutrient", label: "Nutrient Levels" },
               { id: "properties", label: "Soil Properties" },
@@ -234,7 +234,7 @@ export default function SoilHealth() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 px-5 py-2 text-sm font-medium rounded-full transition ${
                   activeTab === tab.id
-                    ? "bg-white text-gray-900 shadow"
+                    ? "bg-white text-gray-900 border border-gray-300"
                     : "text-gray-600 hover:text-gray-800"
                 }`}
               >
@@ -248,7 +248,7 @@ export default function SoilHealth() {
         {activeTab === "nutrient" && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* --- MACRO-NUTRIENT ANALYSIS --- */}
-            <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="bg-white rounded-2xl border border-gray-200 p-8">
               <h2 className="text-2xl font-semibold text-gray-800 mb-2">
                 Macro-Nutrient Analysis
               </h2>
@@ -300,7 +300,7 @@ export default function SoilHealth() {
             </div>
 
             {/* --- SOIL HEALTH RADAR --- */}
-            <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="bg-white rounded-2xl border border-gray-200 p-8">
               <h2 className="text-2xl font-semibold text-gray-800 mb-2">
                 Soil Health Radar
               </h2>
@@ -340,7 +340,7 @@ export default function SoilHealth() {
             </div>
 
             {/* --- NUTRIENT BREAKDOWN SECTION --- */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 col-span-1 lg:col-span-2">
+            <div className="bg-white rounded-2xl border border-gray-200 p-8 col-span-1 lg:col-span-2">
               <h2 className="text-2xl font-semibold text-gray-800 mb-2">
                 Nutrient Breakdown
               </h2>
@@ -488,7 +488,7 @@ export default function SoilHealth() {
               ].map((item, i) => (
                 <div
                   key={i}
-                  className="bg-white border border-gray-100 shadow rounded-2xl p-5 pt-8 pb-6 flex flex-col justify-between"
+                  className="bg-white border border-gray-200 rounded-2xl p-5 pt-8 pb-6 flex flex-col justify-between"
                 >
                   <div>
                     <h4 className="text-lg font-semibold text-gray-800">
@@ -520,7 +520,7 @@ export default function SoilHealth() {
             </div>
 
             {/* Big Card with Insights */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 w-[95%] mx-auto mt-10">
+            <div className="bg-white rounded-2xl border border-gray-200 p-8 w-[95%] mx-auto mt-10">
               <h2 className="text-2xl font-semibold text-gray-800 mb-2">
                 Soil Property Guidelines
               </h2>
@@ -553,7 +553,7 @@ export default function SoilHealth() {
         {activeTab === "trends" && (
           <div>
             {/* --- GRAPH CARD --- */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 w-[95%] mx-auto mt-10">
+            <div className="bg-white rounded-2xl border border-gray-200 p-8 w-[95%] mx-auto mt-10">
               <h2 className="text-2xl font-semibold text-gray-800 mb-2">
                 6-Month Nutrient Trends
               </h2>
@@ -603,7 +603,7 @@ export default function SoilHealth() {
             </div>
 
             {/* --- SEPARATE INSIGHT CARD --- */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 w-[95%] mx-auto mt-10">
+            <div className="bg-white rounded-2xl border border-gray-200 p-8 w-[95%] mx-auto mt-10">
               <h2 className="text-2xl font-semibold text-gray-800 mb-2">
                 Trend Analysis & Insights
               </h2>

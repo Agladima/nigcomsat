@@ -110,7 +110,7 @@ export default function Dashboard() {
         {/* Dashboard Metrics */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Soil Health */}
-          <div className="bg-white rounded-lg shadow border border-gray-100 p-5 flex flex-col">
+          <div className="bg-white rounded-lg border border-gray-200 p-5 flex flex-col">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-semibold text-gray-800">
                 Overall Soil Health
@@ -127,7 +127,7 @@ export default function Dashboard() {
           </div>
 
           {/* Temperature */}
-          <div className="bg-white rounded-lg shadow border border-gray-100 p-5 flex flex-col">
+          <div className="bg-white rounded-lg border border-gray-200 p-5 flex flex-col">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-semibold text-gray-800">
                 Current Temperature
@@ -144,7 +144,7 @@ export default function Dashboard() {
           </div>
 
           {/* Soil Moisture */}
-          <div className="bg-white rounded-lg shadow border border-gray-100 p-5 flex flex-col">
+          <div className="bg-white rounded-lg border border-gray-200 p-5 flex flex-col">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-semibold text-gray-800">
                 Avg Soil Moisture
@@ -161,7 +161,7 @@ export default function Dashboard() {
           </div>
 
           {/* Wind Speed */}
-          <div className="bg-white rounded-lg shadow border border-gray-100 p-5 flex flex-col">
+          <div className="bg-white rounded-lg border border-gray-200 p-5 flex flex-col">
             <div className="flex justify-between items-center">
               <h3 className="text-lg font-semibold text-gray-800">
                 Wind Speed
@@ -181,7 +181,7 @@ export default function Dashboard() {
         {/* --- Graph Cards --- */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
           {/* Soil Health Indicators */}
-          <div className="bg-white rounded-lg shadow border border-gray-100 p-6">
+          <div className="bg-white rounded-lg border border-gray-200 p-6">
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
               Soil Health Indicators
             </h3>
@@ -216,7 +216,7 @@ export default function Dashboard() {
           </div>
 
           {/* 7-Day Weather Forecast */}
-          <div className="bg-white rounded-lg shadow border border-gray-100 p-6">
+          <div className="bg-white rounded-lg border border-gray-200 p-6">
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
               7-Day Weather Forecast
             </h3>
@@ -268,8 +268,9 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+
         {/* --- Recommendations Card --- */}
-        <div className="bg-white rounded-lg shadow border border-gray-100 p-6 w-[100%] mx-auto mt-8">
+        <div className="bg-white rounded-lg border border-gray-200 p-6 w-[100%] mx-auto mt-8">
           <h3 className="text-xl font-semibold text-gray-800 mb-2">
             Recommendations
           </h3>
