@@ -24,9 +24,11 @@ import {
   Tooltip,
   ComposedChart,
 } from "recharts";
+import RunNewTestModal from "@/components/RunNewTestModal";
 
 export default function WeatherAnalytics() {
   const [activeTab, setActiveTab] = useState("forecast");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Forecast Analysis Data
   const tempHumidityData = [
@@ -116,7 +118,10 @@ export default function WeatherAnalytics() {
             <Bell size={20} className="text-gray-700" />
           </button>
 
-          <button className="bg-blue-600 text-white px-4 py-1.5 rounded-full font-medium hover:bg-blue-700 transition border border-blue-700">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-blue-600 text-white px-4 py-1.5 rounded-full font-medium hover:bg-blue-700 transition border border-blue-700"
+          >
             Run New Test
           </button>
         </div>
@@ -529,6 +534,10 @@ export default function WeatherAnalytics() {
           </>
         )}
       </div>
+      <RunNewTestModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }

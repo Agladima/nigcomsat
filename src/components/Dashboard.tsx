@@ -24,9 +24,11 @@ import {
   Line,
   Legend,
 } from "recharts";
+import RunNewTestModal from "@/components/RunNewTestModal";
 
 export default function Dashboard() {
   const [showAlert, setShowAlert] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Soil health data
   const soilData = [
@@ -70,7 +72,10 @@ export default function Dashboard() {
             <Bell size={20} className="text-gray-700" />
           </button>
 
-          <button className="bg-blue-600 text-white px-4 py-1.5 rounded-full font-medium hover:bg-blue-700 transition">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-blue-600 text-white px-4 py-1.5 rounded-full font-medium hover:bg-blue-700 transition"
+          >
             Run New Test
           </button>
         </div>
@@ -320,6 +325,10 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+      <RunNewTestModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }

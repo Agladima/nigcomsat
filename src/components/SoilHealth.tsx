@@ -20,9 +20,11 @@ import {
   PolarRadiusAxis,
   Radar,
 } from "recharts";
+import RunNewTestModal from "@/components/RunNewTestModal";
 
 export default function SoilHealth() {
   const [activeTab, setActiveTab] = useState("nutrient");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const propertyInsights = [
     {
@@ -166,7 +168,10 @@ export default function SoilHealth() {
             <Bell size={20} className="text-gray-700" />
           </button>
 
-          <button className="bg-blue-600 text-white px-4 py-1.5 rounded-full font-medium hover:bg-blue-700 transition border border-blue-700">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-blue-600 text-white px-4 py-1.5 rounded-full font-medium hover:bg-blue-700 transition border border-blue-700"
+          >
             Run New Test
           </button>
         </div>
@@ -636,6 +641,10 @@ export default function SoilHealth() {
           </div>
         )}
       </div>
+      <RunNewTestModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
