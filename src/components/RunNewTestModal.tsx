@@ -1,7 +1,9 @@
 "use client";
 
-import { X, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
+import SoilHealthForm from "./tests/SoilHealthForm";
+import CropYieldForm from "./tests/CropYieldForm";
 
 interface RunNewTestModalProps {
   isOpen: boolean;
@@ -122,7 +124,7 @@ export default function RunNewTestModal({
                     type="radio"
                     name="testType"
                     value={type}
-                    className={`w-4 h-4 ml-2 border-gray-700 text-black focus:ring-0 ${
+                    className={`w-4 h-4 ml-2 border-gray-700 text-black focus:ring-0 accent-black ${
                       selectedTestType === type
                         ? "checked:text-black checked:border-black"
                         : ""
@@ -135,9 +137,15 @@ export default function RunNewTestModal({
             </div>
           </div>
 
+          {/* Conditional Test Form */}
+          <div className="mt-6">
+            {selectedTestType === "Soil Health Analysis" && <SoilHealthForm />}
+            {selectedTestType === "Crop Yield Analysis" && <CropYieldForm />}
+          </div>
+
           {/* Location */}
           <div>
-            <label className="block text-gray-800 font-medium mb-2">
+            <label className="block text-gray-800 font-medium mb-2 mt-4">
               Location <span className="text-red-500">*</span>
             </label>
 
