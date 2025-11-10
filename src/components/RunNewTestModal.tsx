@@ -4,6 +4,8 @@ import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import SoilHealthForm from "./tests/SoilHealthForm";
 import CropYieldForm from "./tests/CropYieldForm";
+import PestActivityForm from "./tests/PestActivityForm";
+import WeatherAnalysisForm from "./tests/WeatherAnalysisForm";
 
 interface RunNewTestModalProps {
   isOpen: boolean;
@@ -141,6 +143,8 @@ export default function RunNewTestModal({
           <div className="mt-6">
             {selectedTestType === "Soil Health Analysis" && <SoilHealthForm />}
             {selectedTestType === "Crop Yield Analysis" && <CropYieldForm />}
+            {selectedTestType === "Pest Activity" && <PestActivityForm />}
+            {selectedTestType === "Weather Analysis" && <WeatherAnalysisForm />}
           </div>
 
           {/* Location */}
