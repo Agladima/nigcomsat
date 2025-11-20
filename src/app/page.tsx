@@ -17,7 +17,7 @@ export default function Home() {
   }
 
   return (
-    <main className="relative w-full">
+    <main className="relative w-full bg-white text-gray-900">
       <section className="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
         <Image
           src="/hero.jpg"
@@ -41,7 +41,7 @@ export default function Home() {
             About the NIGCOMSAT Accelerator Programme
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-200">
+          <p className="text-lg md:text-xl text-white">
             The Accelerator Programme connects startups, researchers, and
             innovators with the tools, mentorship, and resources they need to
             turn ideas into impactful solutions. Through data, technology, and
